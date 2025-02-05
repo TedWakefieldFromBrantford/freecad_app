@@ -3,6 +3,7 @@ import FreeCADGui
 from PySide import QtGui
 from make_cube import *
 from make_cylinder import *
+from make_tube import *
 
 def show_main_dialog():
     main_options = ['Make Primitive', 'Do Operation', 'Quit']
@@ -26,7 +27,7 @@ def show_main_dialog():
         return
 
 def show_primitive_dialog():
-    primitives = ['Box', 'Sphere', 'Cylinder', 'Cone', 'Torus', 'Prism', 'Wedge']
+    primitives = ['Box', 'Sphere', 'Cylinder', 'Cone', 'Torus', 'Prism', 'Tube']
     primitive, ok = QtGui.QInputDialog.getItem(
         FreeCADGui.getMainWindow(),
         "Create Primitive",
@@ -45,6 +46,10 @@ def create_primitive(primitive_type):
         doc = FreeCAD.newDocument()
     
     if primitive_type == 'Box':
+        create_parametric_cube()
+    if primitive_type == 'Tube':
+        create_parametric_tube()
+    elif primitive_type == 'Cube':
         create_parametric_cube()
     elif primitive_type == 'Sphere':
         doc.addObject("Part::Sphere", "Sphere")
